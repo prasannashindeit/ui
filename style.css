@@ -1,0 +1,1135 @@
+/* ═══════════════════════════════════════════════════
+   TERMINAL PORTFOLIO — CRT Design System
+   Following ui.md specification
+   ═══════════════════════════════════════════════════ */
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ── Design Tokens ── */
+:root {
+  /* 2.1 Colors — Phosphor Monitor */
+  --bg: #0a0a0a;
+  --bg-panel: #0d0d0d;
+  --primary: #33ff00;
+  --secondary: #ffb000;
+  --muted: #1f521f;
+  --error: #ff3333;
+  --text: #33ff00;
+  --text-dim: #2bcc2b;
+  --text-muted: #1e7a1e;
+  --inverted-bg: #33ff00;
+  --inverted-text: #0a0a0a;
+
+  /* 3. Phosphor Glow */
+  --glow: 0 0 4px rgba(51, 255, 0, 0.35);
+  --glow-strong: 0 0 8px rgba(51, 255, 0, 0.5), 0 0 16px rgba(51, 255, 0, 0.15);
+  --glow-amber: 0 0 4px rgba(255, 176, 0, 0.4);
+
+  /* 2.2 Typography */
+  --font: 'JetBrains Mono', 'Fira Code', 'VT323', 'Courier New', monospace;
+  --font-size: 16px;
+  --line-height: 1.8;
+
+  /* 2.3 Geometry */
+  --border: 1px solid var(--muted);
+  --border-active: 1px solid var(--primary);
+  --radius: 0px;
+}
+
+/* ── Custom Terminal Cursors ── */
+/* Default: green crosshair */
+html {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cline x1='12' y1='0' x2='12' y2='10' stroke='%2333ff00' stroke-width='1.5'/%3E%3Cline x1='12' y1='14' x2='12' y2='24' stroke='%2333ff00' stroke-width='1.5'/%3E%3Cline x1='0' y1='12' x2='10' y2='12' stroke='%2333ff00' stroke-width='1.5'/%3E%3Cline x1='14' y1='12' x2='24' y2='12' stroke='%2333ff00' stroke-width='1.5'/%3E%3Ccircle cx='12' cy='12' r='2' fill='%2333ff00'/%3E%3C/svg%3E") 12 12, crosshair;
+  scroll-behavior: smooth;
+  scroll-padding-top: 60px;
+}
+
+/* Pointer: green terminal arrow for interactive elements */
+a,
+button,
+.btn,
+.filter-btn,
+.social-link,
+.back-to-top,
+.hamburger,
+.nav-link,
+.project-links a,
+[role="button"],
+input[type="submit"],
+summary {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='24' viewBox='0 0 20 24'%3E%3Cpolygon points='2,1 18,12 2,23' fill='%2333ff00' stroke='%230a0a0a' stroke-width='1'/%3E%3C/svg%3E") 4 12, pointer;
+}
+
+/* Text cursor: green I-beam for inputs */
+input,
+textarea,
+[contenteditable] {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='24' viewBox='0 0 16 24'%3E%3Cline x1='4' y1='1' x2='12' y2='1' stroke='%2333ff00' stroke-width='1.5'/%3E%3Cline x1='8' y1='1' x2='8' y2='23' stroke='%2333ff00' stroke-width='1.5'/%3E%3Cline x1='4' y1='23' x2='12' y2='23' stroke='%2333ff00' stroke-width='1.5'/%3E%3C/svg%3E") 8 12, text;
+}
+
+body {
+  font-family: var(--font);
+  font-size: var(--font-size);
+  font-weight: 400;
+  line-height: var(--line-height);
+  background: var(--bg);
+  color: var(--primary);
+  overflow-x: hidden;
+  text-shadow: var(--glow);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--bg);
+  text-shadow: none;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+a:hover {
+  color: var(--bg);
+  background: var(--primary);
+  text-shadow: none;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* ── Matrix Rain Canvas ── */
+#matrixRain {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.12;
+}
+
+/* ── Dot Grid Background Pattern ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(51, 255, 0, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Ensure main content sits above background effects */
+.navbar,
+.hero,
+.section,
+.footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── CRT Scanline Overlay ── */
+.crt-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(0deg,
+      rgba(0, 0, 0, 0.06) 0px,
+      rgba(0, 0, 0, 0.06) 1px,
+      transparent 1px,
+      transparent 3px);
+}
+
+/* ── Container ── */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ═══════════════════════════════════════════════════
+   NAVIGATION — Top Bar
+   ═══════════════════════════════════════════════════ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(10, 10, 10, 0.95);
+  border-bottom: var(--border);
+  backdrop-filter: blur(4px);
+}
+
+.nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+}
+
+.nav-logo {
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+}
+
+.nav-logo:hover {
+  background: transparent;
+  color: var(--primary);
+}
+
+.nav-logo .prompt {
+  color: var(--secondary);
+  text-shadow: var(--glow-amber);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 4px;
+}
+
+.nav-link {
+  color: var(--text-dim);
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: var(--radius);
+  transition: all 0.15s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: var(--primary);
+  color: var(--bg);
+  text-shadow: none;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  background: none;
+  border: var(--border);
+  color: var(--primary);
+  padding: 6px 10px;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  text-shadow: var(--glow);
+  border-radius: var(--radius);
+}
+
+.hamburger:hover {
+  background: var(--primary);
+  color: var(--bg);
+  text-shadow: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   HERO — Boot Sequence
+   ═══════════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 20px 40px;
+}
+
+.hero-terminal {
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  border: var(--border-active);
+  background: var(--bg-panel);
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border-bottom: var(--border);
+  background: rgba(51, 255, 0, 0.05);
+}
+
+.terminal-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 8px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.terminal-body {
+  padding: 32px;
+  min-height: 400px;
+}
+
+.boot-line {
+  margin-bottom: 8px;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  opacity: 0;
+  transform: translateY(5px);
+  animation: boot-appear 0.3s forwards;
+}
+
+.boot-line .ok {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.boot-line .warn {
+  color: var(--secondary);
+  text-shadow: var(--glow-amber);
+}
+
+.boot-line .err {
+  color: var(--error);
+}
+
+@keyframes boot-appear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-divider {
+  border: none;
+  border-top: 1px dashed var(--muted);
+  margin: 24px 0;
+}
+
+.hero-name {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--primary);
+  text-shadow: var(--glow-strong);
+  margin-bottom: 8px;
+}
+
+.hero-tagline {
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin-bottom: 24px;
+}
+
+.hero-tagline .typing-text {
+  color: var(--secondary);
+  text-shadow: var(--glow-amber);
+}
+
+.cursor {
+  color: var(--primary);
+  animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.hero-description {
+  color: var(--text-dim);
+  margin-bottom: 32px;
+  max-width: 600px;
+  font-size: 0.9rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ═══════════════════════════════════════════════════
+   BUTTONS — Executables [ ]
+   ═══════════════════════════════════════════════════ */
+.btn {
+  display: inline-block;
+  padding: 10px 24px;
+  border: var(--border-active);
+  background: transparent;
+  color: var(--primary);
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  text-shadow: var(--glow);
+  border-radius: var(--radius);
+  transition: all 0.15s;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: var(--primary);
+  color: var(--bg);
+  text-shadow: none;
+  box-shadow: var(--glow-strong);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary {
+  border-color: var(--secondary);
+  color: var(--secondary);
+  text-shadow: var(--glow-amber);
+}
+
+.btn-secondary:hover {
+  background: var(--secondary);
+  color: var(--bg);
+  text-shadow: none;
+  box-shadow: var(--glow-amber);
+}
+
+/* ═══════════════════════════════════════════════════
+   SECTIONS
+   ═══════════════════════════════════════════════════ */
+.section {
+  padding: 80px 0;
+}
+
+.section-header {
+  margin-bottom: 40px;
+}
+
+.section-divider {
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.section-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--muted);
+}
+
+.section-title .num {
+  color: var(--secondary);
+  text-shadow: var(--glow-amber);
+}
+
+/* ═══════════════════════════════════════════════════
+   CARDS — Window/Pane
+   ═══════════════════════════════════════════════════ */
+.card {
+  border: var(--border);
+  background: var(--bg-panel);
+  margin-bottom: 16px;
+  transition: border-color 0.2s;
+  border-radius: var(--radius);
+}
+
+.card:hover {
+  border-color: var(--primary);
+}
+
+.card-header {
+  padding: 8px 16px;
+  border-bottom: var(--border);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  background: rgba(51, 255, 0, 0.03);
+}
+
+.card-header .ascii-frame {
+  color: var(--muted);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* ═══════════════════════════════════════════════════
+   ABOUT
+   ═══════════════════════════════════════════════════ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.about-avatar {
+  border: var(--border-active);
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-panel);
+  border-radius: var(--radius);
+}
+
+.ascii-avatar {
+  font-size: 0.55rem;
+  line-height: 1.1;
+  color: var(--text-dim);
+  white-space: pre;
+  text-align: center;
+}
+
+.about-text p {
+  color: var(--text-dim);
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+.about-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--muted);
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-shadow: var(--glow);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════
+   SKILLS — ASCII Progress Bars
+   ═══════════════════════════════════════════════════ */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.skill-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.skill-name {
+  color: var(--text-dim);
+}
+
+.skill-bar {
+  color: var(--primary);
+  font-size: 0.75rem;
+  letter-spacing: -1px;
+}
+
+.skill-bar .empty {
+  color: var(--text-muted);
+}
+
+.skill-category-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--secondary);
+  text-shadow: var(--glow-amber);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: var(--border);
+}
+
+/* ═══════════════════════════════════════════════════
+   PROJECTS — Terminal Panes
+   ═══════════════════════════════════════════════════ */
+.project-filters {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+.filter-btn {
+  padding: 4px 16px;
+  border: var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  font-family: var(--font);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s;
+  border-radius: var(--radius);
+  letter-spacing: 1px;
+}
+
+.filter-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.filter-btn.active {
+  background: var(--primary);
+  color: var(--bg);
+  border-color: var(--primary);
+  text-shadow: none;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.project-card.hidden {
+  display: none;
+}
+
+.project-title {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.project-desc {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-tech span {
+  font-size: 0.75rem;
+  color: var(--secondary);
+  text-shadow: var(--glow-amber);
+}
+
+.project-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--text-muted);
+}
+
+.project-links a {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  padding: 2px 8px;
+  border: 1px dashed var(--muted);
+}
+
+.project-links a:hover {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--bg);
+  text-shadow: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   EXPERIENCE — Timeline Logs
+   ═══════════════════════════════════════════════════ */
+.timeline-item {
+  padding-left: 24px;
+  border-left: var(--border-active);
+  padding-bottom: 32px;
+  position: relative;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item::before {
+  content: '>';
+  position: absolute;
+  left: -5px;
+  top: 0;
+  color: var(--primary);
+  font-weight: 700;
+  text-shadow: var(--glow);
+  font-size: 0.85rem;
+}
+
+.timeline-date {
+  font-size: 0.8rem;
+  color: var(--secondary);
+  text-shadow: var(--glow-amber);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.timeline-role {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.timeline-desc {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.timeline-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.timeline-tags span {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border: 1px dashed var(--muted);
+  color: var(--text-dim);
+}
+
+/* ═══════════════════════════════════════════════════
+   CONTACT — Command Line Input
+   ═══════════════════════════════════════════════════ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.contact-info p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.contact-detail {
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+}
+
+.contact-detail .label {
+  color: var(--text-muted);
+}
+
+.contact-detail .value {
+  color: var(--primary);
+}
+
+.social-links {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.social-link {
+  padding: 6px 14px;
+  border: var(--border);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.social-link:hover {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--bg);
+  text-shadow: none;
+}
+
+/* ── Contact Form (Shell Prompt Inputs) ── */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-prompt {
+  font-size: 0.8rem;
+  color: var(--secondary);
+  text-shadow: var(--glow-amber);
+  margin-bottom: 4px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px 0 8px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed var(--muted);
+  color: var(--primary);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  outline: none;
+  caret-color: var(--primary);
+  text-shadow: var(--glow);
+  resize: none;
+  border-radius: var(--radius);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
+  text-shadow: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary);
+  caret-shape: block;
+}
+
+.form-group::before {
+  content: '>';
+  position: absolute;
+  bottom: 10px;
+  left: 4px;
+  color: var(--primary);
+  font-weight: 700;
+  text-shadow: var(--glow);
+}
+
+.form-group.textarea-group::before {
+  top: 32px;
+  bottom: auto;
+}
+
+.form-success {
+  padding: 12px;
+  border: 1px dashed var(--primary);
+  color: var(--primary);
+  font-size: 0.85rem;
+  border-radius: var(--radius);
+}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════ */
+.footer {
+  padding: 24px 0;
+  border-top: var(--border);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.back-to-top {
+  background: none;
+  border: var(--border);
+  color: var(--text-dim);
+  font-family: var(--font);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 4px 12px;
+  border-radius: var(--radius);
+  transition: all 0.15s;
+  text-shadow: var(--glow);
+}
+
+.back-to-top:hover {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--bg);
+  text-shadow: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════ */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+/* Staggered delays for child elements */
+.animate-on-scroll:nth-child(1) {
+  transition-delay: 0s;
+}
+
+.animate-on-scroll:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.animate-on-scroll:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+.animate-on-scroll:nth-child(4) {
+  transition-delay: 0.3s;
+}
+
+.animate-on-scroll:nth-child(5) {
+  transition-delay: 0.4s;
+}
+
+.animate-on-scroll:nth-child(6) {
+  transition-delay: 0.5s;
+}
+
+/* Direction variants */
+.animate-on-scroll.slide-left {
+  transform: translateX(-40px);
+}
+
+.animate-on-scroll.slide-right {
+  transform: translateX(40px);
+}
+
+.animate-on-scroll.fade-scale {
+  transform: scale(0.95);
+}
+
+/* Glitch Effect — RGB Split (spec 3: "subtle RGB-split") */
+.glitch {
+  position: relative;
+}
+
+.glitch:hover {
+  animation: glitch-shake 0.3s ease;
+  text-shadow:
+    2px 0 #ff0000,
+    -2px 0 #00ffff,
+    0 0 10px rgba(51, 255, 0, 0.6);
+}
+
+@keyframes glitch-shake {
+  0% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(-2px, 1px);
+  }
+
+  40% {
+    transform: translate(2px, -1px);
+  }
+
+  60% {
+    transform: translate(-1px, -1px);
+  }
+
+  80% {
+    transform: translate(1px, 1px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* Apply glitch to all interactive card headers on hover */
+.card:hover .card-header {
+  text-shadow: 1px 0 #ff0000, -1px 0 #00ffff;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Focus Management (spec 5.3: hard color inversion) ── */
+:focus-visible {
+  outline: none;
+  background: var(--primary) !important;
+  color: var(--bg) !important;
+  text-shadow: none !important;
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+a:focus-visible,
+.btn:focus-visible,
+.filter-btn:focus-visible,
+.social-link:focus-visible,
+.back-to-top:focus-visible,
+.hamburger:focus-visible {
+  outline: none;
+  background: var(--primary);
+  color: var(--bg);
+  text-shadow: none;
+}
+
+/* ── Input blinking cursor (spec 4.3: blinking █ cursor) ── */
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+  background: transparent !important;
+  color: var(--primary) !important;
+  text-shadow: var(--glow) !important;
+}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 10, 0.98);
+    flex-direction: column;
+    padding: 16px 20px;
+    gap: 4px;
+    border-bottom: var(--border);
+    transform: translateY(-120%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-avatar {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    text-align: center;
+  }
+
+  .about-stats {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .terminal-body {
+    padding: 20px;
+  }
+
+  .project-filters {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size: 13px;
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  .hero-name {
+    letter-spacing: 2px;
+  }
+}

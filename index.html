@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>prasanna@security ~ $</title>
+    <meta name="description"
+        content="Prasanna Shinde — Cybersecurity Analyst. VAPT, Web Application Security, Network Testing." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+
+    <!-- Matrix Rain Background -->
+    <canvas id="matrixRain"></canvas>
+
+    <!-- CRT Scanline Overlay -->
+    <div class="crt-overlay"></div>
+
+    <!-- ═══════════════ NAVIGATION ═══════════════ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo"><span class="prompt">$</span> prasanna</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" class="nav-link">about</a></li>
+                <li><a href="#skills" class="nav-link">skills</a></li>
+                <li><a href="#projects" class="nav-link">projects</a></li>
+                <li><a href="#experience" class="nav-link">log</a></li>
+                <li><a href="#certifications" class="nav-link">certs</a></li>
+                <li><a href="#education" class="nav-link">edu</a></li>
+                <li><a href="#contact" class="nav-link">contact</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger">[≡ MENU]</button>
+        </div>
+    </nav>
+
+    <!-- ═══════════════ HERO — Terminal Boot ═══════════════ -->
+    <section class="hero" id="hero">
+        <div class="hero-terminal">
+            <div class="terminal-header">
+                <span class="terminal-title">prasanna@kali:~/security</span>
+                <span class="terminal-controls">─ □ ✕</span>
+            </div>
+            <div class="terminal-body" id="terminalBody">
+                <div class="boot-line" style="animation-delay: 0.2s">[<span class="ok">OK</span>] loading security
+                    modules...</div>
+                <div class="boot-line" style="animation-delay: 0.5s">[<span class="ok">OK</span>] initializing nmap
+                    scan engine...</div>
+                <div class="boot-line" style="animation-delay: 0.8s">[<span class="ok">OK</span>] mounting burp suite
+                    proxy v2024...</div>
+                <div class="boot-line" style="animation-delay: 1.1s">[<span class="warn">WARN</span>] 20+
+                    vulnerabilities documented. patching advised...</div>
+                <div class="boot-line" style="animation-delay: 1.4s">[<span class="ok">OK</span>] system hardened.
+                    ready.</div>
+
+                <hr class="hero-divider" />
+
+                <h1 class="hero-name glitch" id="heroName">PRASANNA SHINDE</h1>
+                <div class="hero-tagline">
+                    <span>$ echo "</span><span class="typing-text" id="typingText"></span><span
+                        class="cursor">█</span><span>"</span>
+                </div>
+                <p class="hero-description">
+                    &gt; cybersecurity analyst with 1.8+ years of experience in VAPT,<br />
+                    &gt; specializing in web app security, network testing, and secure coding.<br />
+                    &gt; identifying, exploiting, and remediating security flaws.
+                </p>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn">[ VIEW_PROJECTS ]</a>
+                    <a href="#contact" class="btn btn-secondary">[ SEND_MESSAGE ]</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ ABOUT ═══════════════ -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-divider">=====================================</div>
+                <h2 class="section-title"><span class="num">01</span> // ABOUT_ME</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-avatar animate-on-scroll slide-left">
+                    <pre class="ascii-avatar">
+    .---------.
+   /   .-""-.  \
+  |   / .--. \  |
+  |  | |    | | |
+  |  | '----' | |
+  |   \ '--' /  |
+   \   '-..-'  /
+    '---------'
+    [ANALYST]
+          </pre>
+                </div>
+                <div class="about-text">
+                    <p class="animate-on-scroll slide-right">
+                        &gt; cybersecurity analyst specializing in vulnerability assessment
+                        and penetration testing (VAPT). skilled in identifying, exploiting,
+                        and remediating security flaws using tools such as burp suite,
+                        owasp zap, nessus, nmap, metasploit, and wireshark.
+                    </p>
+                    <p class="animate-on-scroll slide-right">
+                        &gt; proficient in threat modeling, exploit validation, and risk
+                        prioritization aligned with OWASP Top 10, OWASP WSTG, and
+                        MITRE ATT&amp;CK. delivered 20+ vulnerability reports with 90%
+                        successful remediation by development teams.
+                    </p>
+                    <div class="about-stats animate-on-scroll">
+                        <div class="stat">
+                            <div class="stat-value" data-count="20">0</div>
+                            <div class="stat-label">vuln_reports</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" data-count="90">0</div>
+                            <div class="stat-label">remediation_%</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" data-count="83">0</div>
+                            <div class="stat-label">accuracy_%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ SKILLS ═══════════════ -->
+    <section class="section" id="skills">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-divider">=====================================</div>
+                <h2 class="section-title"><span class="num">02</span> // SKILLS</h2>
+            </div>
+            <div class="skills-grid">
+
+                <div class="card animate-on-scroll">
+                    <div class="card-header"><span class="ascii-frame">+---</span> SECURITY <span
+                            class="ascii-frame">---+</span></div>
+                    <div class="card-body">
+                        <div class="skill-item"><span class="skill-name">penetration testing</span><span
+                                class="skill-bar">|█████████<span class="empty">░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">vuln assessment</span><span
+                                class="skill-bar">|█████████<span class="empty">░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">web app security</span><span
+                                class="skill-bar">|████████<span class="empty">░░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">network testing</span><span
+                                class="skill-bar">|████████<span class="empty">░░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">encryption</span><span
+                                class="skill-bar">|███████<span class="empty">░░░</span>|</span></div>
+                    </div>
+                </div>
+
+                <div class="card animate-on-scroll">
+                    <div class="card-header"><span class="ascii-frame">+---</span> TOOLS <span
+                            class="ascii-frame">---+</span></div>
+                    <div class="card-body">
+                        <div class="skill-item"><span class="skill-name">burp suite</span><span
+                                class="skill-bar">|█████████<span class="empty">░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">owasp zap</span><span
+                                class="skill-bar">|████████<span class="empty">░░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">nmap</span><span
+                                class="skill-bar">|█████████<span class="empty">░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">metasploit</span><span
+                                class="skill-bar">|████████<span class="empty">░░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">wireshark</span><span
+                                class="skill-bar">|████████<span class="empty">░░</span>|</span></div>
+                    </div>
+                </div>
+
+                <div class="card animate-on-scroll">
+                    <div class="card-header"><span class="ascii-frame">+---</span> NETWORKING <span
+                            class="ascii-frame">---+</span></div>
+                    <div class="card-body">
+                        <div class="skill-item"><span class="skill-name">tcp/udp</span><span
+                                class="skill-bar">|████████<span class="empty">░░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">dhcp</span><span
+                                class="skill-bar">|████████<span class="empty">░░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">subnetting</span><span
+                                class="skill-bar">|███████<span class="empty">░░░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">firewalls</span><span
+                                class="skill-bar">|████████<span class="empty">░░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">osi model</span><span
+                                class="skill-bar">|█████████<span class="empty">░</span>|</span></div>
+                    </div>
+                </div>
+
+                <div class="card animate-on-scroll">
+                    <div class="card-header"><span class="ascii-frame">+---</span> PROGRAMMING <span
+                            class="ascii-frame">---+</span></div>
+                    <div class="card-body">
+                        <div class="skill-item"><span class="skill-name">python</span><span
+                                class="skill-bar">|████████<span class="empty">░░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">javascript</span><span
+                                class="skill-bar">|███████<span class="empty">░░░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">sql</span><span
+                                class="skill-bar">|████████<span class="empty">░░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">asp.net</span><span
+                                class="skill-bar">|██████<span class="empty">░░░░</span>|</span></div>
+                        <div class="skill-item"><span class="skill-name">langchain</span><span
+                                class="skill-bar">|██████<span class="empty">░░░░</span>|</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ PROJECTS ═══════════════ -->
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-divider">=====================================</div>
+                <h2 class="section-title"><span class="num">03</span> // PROJECTS</h2>
+            </div>
+
+            <div class="project-filters animate-on-scroll">
+                <button class="filter-btn active" data-filter="all">all</button>
+                <button class="filter-btn" data-filter="security">security</button>
+                <button class="filter-btn" data-filter="monitoring">monitoring</button>
+                <button class="filter-btn" data-filter="ai">ai</button>
+            </div>
+
+            <div class="projects-grid">
+
+                <div class="project-card card animate-on-scroll" data-category="security">
+                    <div class="card-header"><span class="ascii-frame">+---</span> PENTEST_LAB <span
+                            class="ascii-frame">---+</span></div>
+                    <div class="card-body">
+                        <div class="project-title">Personal Web App Pentest Lab</div>
+                        <p class="project-desc">configured DVWA, juice shop, and webgoat in a home lab;
+                            used burp suite and owasp zap to simulate attacks and validate
+                            security flaws across multiple vulnerability categories.</p>
+                        <div class="project-tech">
+                            <span>--burp-suite</span>
+                            <span>--owasp-zap</span>
+                            <span>--dvwa</span>
+                            <span>--juice-shop</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#">[github]</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card card animate-on-scroll" data-category="monitoring">
+                    <div class="card-header"><span class="ascii-frame">+---</span> WAZUH_MONITOR <span
+                            class="ascii-frame">---+</span></div>
+                    <div class="card-body">
+                        <div class="project-title">Network Monitoring Using Wazuh</div>
+                        <p class="project-desc">deployed wazuh agents to monitor intrusion attempts
+                            and configured email alerts for suspicious activity. built
+                            real-time threat detection and incident response workflows.</p>
+                        <div class="project-tech">
+                            <span>--wazuh</span>
+                            <span>--siem</span>
+                            <span>--intrusion-detection</span>
+                            <span>--alerts</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#">[github]</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card card animate-on-scroll" data-category="ai">
+                    <div class="card-header"><span class="ascii-frame">+---</span> SECURE_AI_APP <span
+                            class="ascii-frame">---+</span></div>
+                    <div class="card-body">
+                        <div class="project-title">Secure AI-Powered Application</div>
+                        <p class="project-desc">developed a langchain-powered full-stack app to query a
+                            SQL backend, implementing GenAI security controls (OWASP Top 10)
+                            to mitigate risks such as prompt injection.</p>
+                        <div class="project-tech">
+                            <span>--langchain</span>
+                            <span>--python</span>
+                            <span>--sql</span>
+                            <span>--owasp</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#">[github]</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ EXPERIENCE ═══════════════ -->
+    <section class="section" id="experience">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-divider">=====================================</div>
+                <h2 class="section-title"><span class="num">04</span> // SYSTEM_LOG</h2>
+            </div>
+
+            <div class="timeline-item animate-on-scroll">
+                <div class="timeline-date">jan 2024 — present</div>
+                <div class="timeline-role">CYBERSECURITY ANALYST @ IOSCAPE INTELITECH PVT LTD</div>
+                <p class="timeline-desc">performed VAPT of client web applications with 83% accuracy rate.
+                    documented 20+ vulnerabilities with prioritized remediation steps.
+                    executed manual and automated security testing using burp suite, owasp zap,
+                    and nessus to uncover injection flaws, misconfigurations, and logic bypasses.
+                    partnered with developers to apply OWASP Top 10 fixes, improving security
+                    posture by 40%. reduced misconfigurations by 30%.</p>
+                <div class="timeline-tags">
+                    <span>burp-suite</span><span>owasp-zap</span><span>nessus</span><span>vapt</span>
+                </div>
+            </div>
+
+            <div class="timeline-item animate-on-scroll">
+                <div class="timeline-date">jan 2022 — may 2022</div>
+                <div class="timeline-role">ASP.NET WEB DEVELOPER INTERN @ TECSPEAK IT SOLUTIONS</div>
+                <p class="timeline-desc">developed and integrated APIs for dynamic, data-driven web applications.
+                    created secure forms with input validation using HTML, CSS, and ASP.NET.
+                    optimized SQL queries and ensured cross-browser compatibility.</p>
+                <div class="timeline-tags">
+                    <span>asp.net</span><span>sql</span><span>html/css</span><span>apis</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════════ CERTIFICATIONS ═══════════════ -->
+    <section class="section" id="certifications">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-divider">=====================================</div>
+                <h2 class="section-title"><span class="num">05</span> // CERTIFICATIONS</h2>
+            </div>
+
+            <div class="skills-grid">
+                <div class="card animate-on-scroll">
+                    <div class="card-header"><span class="ascii-frame">+---</span> GOOGLE <span
+                            class="ascii-frame">---+</span></div>
+                    <div class="card-body">
+                        <div class="skill-item"><span class="skill-name">> google cybersecurity professional
+                                certificate</span></div>
+                        <div class="skill-item"><span class="skill-name">> foundations of cybersecurity</span></div>
+                        <div class="skill-item"><span class="skill-name">> google AI essentials</span></div>
+                    </div>
+                </div>
+                <div class="card animate-on-scroll">
+                    <div class="card-header"><span class="ascii-frame">+---</span> MICROSOFT <span
+                            class="ascii-frame">---+</span></div>
+                    <div class="card-body">
+                        <div class="skill-item"><span class="skill-name">> azure data fundamentals
+                                (certified)</span></div>
+                    </div>
+                </div>
+                <div class="card animate-on-scroll">
+                    <div class="card-header"><span class="ascii-frame">+---</span> IN_PROGRESS <span
+                            class="ascii-frame">---+</span></div>
+                    <div class="card-body">
+                        <div class="skill-item"><span class="skill-name">> comptia security+ (SY0-701) —
+                                preparing</span></div>
+                        <div class="skill-item"><span class="skill-name">> tryhackme — active</span></div>
+                        <div class="skill-item"><span class="skill-name">> hackthebox — active</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════════ EDUCATION ═══════════════ -->
+    <section class="section" id="education">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-divider">=====================================</div>
+                <h2 class="section-title"><span class="num">06</span> // EDUCATION</h2>
+            </div>
+
+            <div class="timeline-item animate-on-scroll">
+                <div class="timeline-date">2020 — 2022</div>
+                <div class="timeline-role">MCA — V.P. INSTITUTE OF MANAGEMENT STUDIES & RESEARCH, SANGLI</div>
+                <p class="timeline-desc">master of computer applications. focused on advanced programming,
+                    database management, and software engineering. scored 75.27%.</p>
+                <div class="timeline-tags">
+                    <span>computer-science</span><span>databases</span><span>software-engineering</span>
+                </div>
+            </div>
+
+            <div class="timeline-item animate-on-scroll">
+                <div class="timeline-date">2015 — 2018</div>
+                <div class="timeline-role">B.SC.(CS) — S.M. DR. BAPUJI SALUNKHE MAHAVIDYALAYA, MIRAJ</div>
+                <p class="timeline-desc">bachelor of science in computer science. built foundation in
+                    programming, algorithms, and computer fundamentals. scored 57.04%.</p>
+                <div class="timeline-tags">
+                    <span>algorithms</span><span>programming</span><span>fundamentals</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════════ CONTACT ═══════════════ -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-divider">=====================================</div>
+                <h2 class="section-title"><span class="num">07</span> // CONTACT</h2>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info animate-on-scroll">
+                    <p>&gt; open to cybersecurity roles, pentesting engagements, and
+                        collaborations. whether you have a security audit or just want
+                        to connect — let's talk.</p>
+                    <div class="contact-detail">
+                        <span class="label">email: </span>
+                        <span class="value">prasannashinde.it@hotmail.com</span>
+                    </div>
+                    <div class="contact-detail">
+                        <span class="label">phone: </span>
+                        <span class="value">+91 7385567421</span>
+                    </div>
+                    <div class="contact-detail">
+                        <span class="label">location: </span>
+                        <span class="value">sangli, maharashtra, india</span>
+                    </div>
+                    <div class="contact-detail">
+                        <span class="label">status: </span>
+                        <span class="value">[AVAILABLE]</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/prasannashinde" class="social-link">[linkedin]</a>
+                        <a href="#" class="social-link">[github]</a>
+                        <a href="#" class="social-link">[tryhackme]</a>
+                    </div>
+                </div>
+
+                <form class="contact-form animate-on-scroll" id="contactForm">
+                    <div class="form-group">
+                        <div class="form-prompt">user@local:~$ enter_name</div>
+                        <input type="text" id="name" name="name" required placeholder="john_doe" autocomplete="name" />
+                    </div>
+                    <div class="form-group">
+                        <div class="form-prompt">user@local:~$ enter_email</div>
+                        <input type="email" id="email" name="email" required placeholder="john@example.com"
+                            autocomplete="email" />
+                    </div>
+                    <div class="form-group textarea-group">
+                        <div class="form-prompt">user@local:~$ enter_message</div>
+                        <textarea id="message" name="message" rows="5" required
+                            placeholder="your message here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn">[ SEND_MESSAGE ]</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <span>© 2026 prasanna shinde — all rights reserved</span>
+                <button class="back-to-top" id="backToTop">[ ↑ TOP ]</button>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+</body>
+
+</html>
